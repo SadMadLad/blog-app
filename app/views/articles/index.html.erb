@@ -1,15 +1,9 @@
-<%# <h1>Hello Rails!</h1> %>
-<% if user_signed_in? %>
-    <main class="columns is-centered">
-        <div class="column is-two-thirds">
-            <h1 class="title">Welcome</h1>       
-            <% @articles.each do | article | %>
-                <%= render "article", :article => article %>
-            <% end %>
-        </div>    
-    </main>
-<% else %>
-    <main class="columns is-centered">
-        <h1 class="column is-two-thirds title">Please Sign In / Sign Up!</h1>
-    </main>
-<% end %>
+<main class="container">
+    <h1>Welcome</h1>       
+    <% @articles.each do | article | %>
+        <%= link_to render("article", :article => article), article_path(article), class: "text-decoration-none text-reset" %>
+    <% end %> 
+    <% if user_signed_in? %>
+        <%= link_to "Create New Article", new_article_path, class: "btn btn-info"%>
+    <% end %>  
+</main>
