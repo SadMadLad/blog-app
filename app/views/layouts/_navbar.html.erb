@@ -1,9 +1,6 @@
 <nav class="navbar navbar-dark bg-dark px-4 py-2">
   <%= link_to "Blogu", root_path, class: "navbar-brand" %>
   <ul class="navbar-nav">
-    <li class="nav-item"> <%= link_to "Home", root_path, class: "nav-link"%>
-  </ul>
-  <ul class="navbar-nav">
     <% if current_user %>
         <li class="nav-item"><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-primary" %> </li>
     <% else %>
