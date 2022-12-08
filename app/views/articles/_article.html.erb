@@ -1,16 +1,11 @@
-<div class="card block">
-  <div class="card-content">
-    <div class="media">
-      <div class="media-content">
-        <p class="title is-4"><%= article.user.first_name + " " + article.user.last_name %></p>
-      </div>
-    </div>
-
-    <div class="content">
-
-      <h3><%= article.body %></h3>
-      <br>
-      <time datetime="2016-1-1"><%= article.updated_at.strftime("%d %B, %Y") %></time>
+<div class="card my-1">
+  <div class="card-body">
+    <h5 class="card-title"><%= article.user.first_name + " " + article.user.last_name %></h5>
+    <p class="card-text"><%= article.title %></p>
+    <p class="card-text"><small class="text-muted">Created on: <%= article.updated_at.strftime("%d %B, %Y") %></small></p>
+    <div class="container">
+        <%= link_to "Update", "#", class: "btn btn-primary mx-1" %>
+        <%= link_to "Delete", "#", class: "btn btn-secondary mx-1" %>
     </div>
   </div>
 </div>
