@@ -1,0 +1,57 @@
+<div class="columns">
+  <div class="column"></div>
+  <div class="mt-5 box column is-two-thirds p-5">
+  
+<h2 class="title">Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "users/shared/error_messages", resource: resource %>
+
+  <div class="field">
+    <%= f.label :first_name, class: "label" %>
+    <%= f.text_field :first_name, autofocus: true, autocomplete: "First Name", class: "input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :last_name, class: "label" %>
+    <%= f.text_field :last_name, autofocus: true, autocomplete: "First Name", class: "input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, class: "label" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, class: "label" %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %>
+    <%= f.password_field :password, autocomplete: "new-password", class: "input" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, class: "label" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input" %>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <%= f.radio_button :user_type, 0 %>
+      <%= f.label :user_type_user, "User", class: "Radio" %>
+      <%= f.radio_button :user_type, 1 %>
+      <%= f.label :user_type_admin, "Admin", class: "Radio" %>
+    </div>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Sign up", class: "button is-primary" %>
+  </div>
+<% end %>
+
+<%# <%= render "users/shared/links" %>
+  
+  
+  </div>
+  <div class="column"></div>
+</div>
