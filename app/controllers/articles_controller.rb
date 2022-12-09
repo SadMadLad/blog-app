@@ -1,37 +1,42 @@
 class ArticlesController < ApplicationController
-    def index
-        @articles = Article.all
-    end
+	before_action :set_article, only: [:show, :destroy]
 
-    def show
-        @article = Article.find(params[:id])
-    end
+	def index
+		@articles = Article.all
+	end
 
-    def new
-        @article = current_user.articles.new
-    end
+	def show
+	end
 
-    def create
-        @article = current_user.articles.new(article_params)
+	def new
+		@article = current_user.articles.new
+	end
 
-        if @article.save
-            redirect_to @article
-        else
-            flash[:errs] = @article.errors.full_messages
-            render :new, status: :unprocessable_entity
-        end
-    end
+	def create
+		@article = current_user.articles.build(article_params)
 
-    def destroy
-        @article = Article.find(params[:id])
-        @article.destroy
+		if @article.save
+			redirect_to @article, flash[:notice]: 'Article Created Successfully'
+		else
+			flash[:errs] = @article.errors.full_messages
+			render :new, status: :unprocessable_entity
+		end
+	end
 
-        redirect_to root_path, status: :see_other
-    end
+	def destroy
+		@article.destroy
 
-    private
-    
-    def article_params
-        params.require(:article).permit(:title, :body, :image)
-    end
+		redirect_to root_path, status: :see_other
+	end
+
+	private
+	
+	def article_params
+		params.require(:article).permit(:title, :body, :image)
+	end
+
+	def set_article
+		@article = Article.find(params[:id])
+	end
+
 end
