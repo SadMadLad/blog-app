@@ -8,4 +8,29 @@
     <section class="mt-3">
         <%= @article.body %>
     </section>
+
+    <div class="my-3">
+        <h1 class="bg-warning">Comment Section</h1>
+        <div class="new-comment container">
+        </div>
+        <div class="bg-success container-fluid my-3">
+            <h1 class="text-center">Comments</h1>
+            <% if user_signed_in? %>
+                <%= form_with model: [@article, @article.comments.build] do |form|%>
+                    <div class="form-group">
+                        <%= form.label :body, class: "label"%>
+                        <%= form.text_field :body, class: "form-control my-3" %>
+                    </div>
+
+                    <%= form.submit %>
+                <% end %>
+            <% end %>
+            
+            <div class="comments container">
+                    <% @article.comments.each do |comment| %>
+                        <%= render 'comment', :comment => comment, :article => @article %>
+                    <% end %>
+            </div>
+        </div>
+    </div>
 </article>

@@ -45,6 +45,7 @@ gem "bootsnap", require: false
 # My Gems
 gem 'bootstrap'
 gem "image_processing", ">= 1.2"
+gem "byebug"
 
 # Use Sass to process CSS
 # gem "sassc-rails"

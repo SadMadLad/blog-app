@@ -1,0 +1,19 @@
+<% if comment.id %>
+<div class="card my-3">
+    <div class="card-header">
+        <%= comment.user.first_name + " " + comment.user.last_name %>
+    </div>
+    <div class="card-body">
+        <div class="card-text">
+            <%= comment.body %>
+        </div>
+            <% if user_signed_in? %>
+            <%= link_to "Delete Comment", [comment.article, comment], data: {
+                turbo_method: :delete,
+                turbo_confirm: "Delete the comment?"
+            }, class: "btn btn-danger" %>
+            <%= link_to "Update Comment", edit_article_comment_path(article, comment), class: "btn btn-info"%>
+            <% end %>
+    </div>
+</div>
+<% end %>
