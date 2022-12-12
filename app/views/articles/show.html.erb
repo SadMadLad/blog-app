@@ -1,4 +1,18 @@
 <article class="card container p-3">
+    <%# Likes Vala Kaam Idher %>
+    <div class="card-header p-0 m-0 bg-white">
+        <span class="btn btn-primary">Article Likes: <%= @article.likes.count() %></span>
+        <% like = current_user.likes.find_by(likeable: @article )%>
+        <% if like %>
+            <%= link_to "Unlike", like_path(like), :method => :delete, class: "btn btn-danger"%>
+        <% else %>
+            <%= form_with(model: Like.new, method: :post, class: "d-inline") do |form|%>
+                <%= form.hidden_field :likeable_id, value: @article.id %>
+                <%= form.hidden_field :likeable_type, value: "Article" %>
+                <%= form.submit "Like", class: "btn btn-info d-inline" %>
+            <% end %>
+        <% end %>
+    </div>
     <h1><%= @article.title %></h1>
     
     <% if @article.image.attached? %>
@@ -10,25 +24,22 @@
     </section>
 
     <div class="my-3">
-        <h1 class="bg-warning">Comment Section</h1>
+        <h1 class="container">Comment Section</h1>
         <div class="new-comment container">
         </div>
-        <div class="bg-success container-fluid my-3">
+        <div class="container-fluid my-3">
             <h1 class="text-center">Comments</h1>
             <% if user_signed_in? %>
                 <%= form_with model: [@article, @article.comments.build] do |form|%>
-                    <div class="form-group">
-                        <%= form.label :body, class: "label"%>
-                        <%= form.text_field :body, class: "form-control my-3" %>
-                    </div>
-
-                    <%= form.submit %>
+                    <%= render "comment_form", :form => form%>
                 <% end %>
             <% end %>
             
             <div class="comments container">
                     <% @article.comments.each do |comment| %>
-                        <%= render 'comment', :comment => comment, :article => @article %>
+                        <% unless comment.parent_id %>
+                            <%= render 'comment', :comment => comment, :article => @article %>
+                        <% end %>
                     <% end %>
             </div>
         </div>

@@ -13,6 +13,12 @@ class CommentsController < ApplicationController
         @comment = @article.comments.find(params[:id])
     end
 
+    def reply
+       @article = Article.find(params[:article_id])
+       @parent_comment = @article.comments.find(params[:comment_id])
+       @reply = Comment.new(article_id: @article, parent_id: @parent_comment)
+    end
+
     def update
         @article = Article.find(params[:article_id])
         @comment = @article.comments.find(params[:id])
@@ -35,6 +41,6 @@ class CommentsController < ApplicationController
 
     private
     def comment_params
-        params.require(:comment).permit(:body, :user_id)
+        params.require(:comment).permit(:body, :user_id, :parent_id)
     end
 end
