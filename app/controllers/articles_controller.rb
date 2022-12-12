@@ -16,7 +16,8 @@ class ArticlesController < ApplicationController
 		@article = current_user.articles.build(article_params)
 
 		if @article.save
-			redirect_to @article, flash[:notice]: 'Article Created Successfully'
+			redirect_to @article
+			flash[:notice] = 'Article Created Successfully'
 		else
 			flash[:errs] = @article.errors.full_messages
 			render :new, status: :unprocessable_entity
