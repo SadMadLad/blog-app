@@ -1,5 +1,4 @@
 <article class="card container p-3">
-    <%# Likes Vala Kaam Idher %>
     <div class="card-header p-0 m-0 bg-white">
         <span class="btn btn-primary">Article Likes: <%= @article.likes.count() %></span>
         <% like = current_user.likes.find_by(likeable: @article )%>
