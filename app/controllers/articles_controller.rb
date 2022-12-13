@@ -8,6 +8,25 @@ class ArticlesController < ApplicationController
 	def show
 	end
 
+	def edit
+		@article = Article.find(params[:id])
+		authorize @article
+	end
+
+	def update
+        @article = Article.find(params[:id])
+		p(@article, article_params, "Mango")
+		@article.image.purg
+		@article.image.attach(article_params[:image])
+		authorize @article
+
+        if @article.update(article_params)
+            redirect_to @article
+        else
+            render :edit, status: :unprocessable_entity
+        end
+    end
+
 	def new
 		@article = current_user.articles.new
 	end
