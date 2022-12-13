@@ -11,6 +11,8 @@ class CommentsController < ApplicationController
     def edit
         @article = Article.find(params[:article_id])
         @comment = @article.comments.find(params[:id])
+
+        authorize @comment
     end
 
     def reply
@@ -23,6 +25,8 @@ class CommentsController < ApplicationController
         @article = Article.find(params[:article_id])
         @comment = @article.comments.find(params[:id])
 
+        authorize @comment
+
         if @comment.update(comment_params)
             redirect_to @article
         else
@@ -34,6 +38,8 @@ class CommentsController < ApplicationController
     def destroy
         @article = Article.find(params[:article_id])
         @comment = @article.comments.find(params[:id])
+
+        authorize @comment
         @comment.destroy
 
         redirect_to @article
