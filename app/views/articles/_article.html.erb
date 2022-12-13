@@ -3,6 +3,7 @@
     <h3 class="card-title"><%= article.title %></h3>
     <h5 class="card-text">Created by: <%= article.user.full_name %></h5>
     <p class="card-text"><small class="text-muted">Created on: <%= article.updated_at.strftime("%d %B, %Y") %></small></p>
+    <% n_likes = article.likes.count() %>
     <% if user_signed_in? %>
         <div class="container py-2">
             <%= link_to "Edit", "#", class: "btn btn-primary mx-1" %>
@@ -12,19 +13,22 @@
             }, class: "btn btn-primary mx-1" %>
             <% like = current_user.likes.find_by(likeable: article )%>
               <% if like %>
-                <%= link_to '<i class="bi bi-star-fill"></i>'.html_safe, like_path(like), :method => :delete %>
+                <%= link_to '<i class="fs-4 bi bi-hand-thumbs-up-fill"></i>'.html_safe, like_path(like), :method => :delete %>
               <% else %>
                 <%= form_with(model: Like.new, method: :post, class: "d-inline") do |form|%>
                   <%= form.hidden_field :likeable_id, value: article.id %>
                   <%= form.hidden_field :likeable_type, value: "Article" %>
                   <%= button_tag type: 'submit', class: "p-0 m-0 border-0 bg-white" do %>
-                    <i class="bi bi-star"></i>
+                    <i class="fs-4 bi bi-hand-thumbs-up"></i>
                   <% end %> <%# Icon end %>
               <% end %> <%# Form end %>
             <% end %> <%# like-if end %>
+            <%= n_likes %>
         </div>
+    <% else %>
+    <div class="container py-2">
+      <i class="bi bi-star"></i> <%= n_likes %>
+    </div>
     <% end %> <%# user_signed_in? end %>
-    <% n_likes = article.likes.count() %>
-    <span class="bg-info p-1 mx-2"><%= n_likes %> <%= "like" if n_likes==1 %> <%= "likes" if n_likes != 1%> </span>
   </div>
 </div>
