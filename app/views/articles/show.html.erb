@@ -1,7 +1,7 @@
 <article class="card container p-3">
-    <div class="card-header p-0 m-0 bg-white">
-        <span class="btn btn-primary">Article Likes: <%= @article.likes.count() %></span>
-        <% if user_signed_in? %>
+ <!--   <div class="card-header p-2 m-0 bg-white">
+        <span class="">Article Likes: <%= @article.likes.count() %></span>
+            <% if user_signed_in? %>
             <% like = current_user.likes.find_by(likeable: @article )%>
             <% if like %>
                 <%= link_to "Unlike", like_path(like), :method => :delete, class: "btn btn-danger"%>
@@ -12,8 +12,8 @@
                     <%= form.submit "Like", class: "btn btn-info d-inline" %>
                 <% end %>
             <% end %>
-        <% end %>
-    </div>
+        <% end %> 
+    </div> -->
     <h1><%= @article.title %></h1>
     
     <% if @article.image.attached? %>

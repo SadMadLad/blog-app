@@ -7,7 +7,7 @@ class LikesController < ApplicationController
     if like_params[:likeable_type] == "Comment"
       redirect_to @like.likeable.article
     else
-      redirect_to @like.likeable
+      redirect_to root_path
     end
   end
 
@@ -16,10 +16,10 @@ class LikesController < ApplicationController
     likeable = @like.likeable
     @like.destroy
 
-    if likeable.class.name == "Article"
-      redirect_to likeable
-    else
+    if likeable.class.name == "Comment"
       redirect_to likeable.article
+    else
+      redirect_to root_path
     end
   end
 
