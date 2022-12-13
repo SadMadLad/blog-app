@@ -25,6 +25,7 @@ class ArticlesController < ApplicationController
 	end
 
 	def destroy
+		authorize @article
 		@article.destroy
 
 		redirect_to root_path, status: :see_other

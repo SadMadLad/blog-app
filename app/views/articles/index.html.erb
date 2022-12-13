@@ -1,4 +1,9 @@
 <main class="container">
+    <% if flash[:alert] %>
+        <div class="alert alert-danger">
+            <%= flash[:alert] %>
+        </div>
+    <% end %>
     <h1>Articles</h1>
     <% @articles.each do | article | %>
         <%= link_to render("article", :article => article), article_path(article), class: "text-decoration-none text-reset" %>
