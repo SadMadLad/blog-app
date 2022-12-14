@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
 
-  enum :user_type, {user: 0, admin: 1}
+  enum :user_type, [:user, :admin]
   
   def full_name
     first_name + " " + last_name
