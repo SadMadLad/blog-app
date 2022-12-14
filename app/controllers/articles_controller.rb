@@ -1,57 +1,54 @@
 class ArticlesController < ApplicationController
 	before_action :set_article, only: [:show, :edit, :update, :destroy]
 
-	def index
-		@articles = Article.all
-	end
+  def index
+    @articles = Article.all
+  end
 
-	def show
-	end
+  def show
+  end
 
-	def new
-		@article = current_user.articles.new
-	end
+  def new
+    @article = current_user.articles.new
+  end
 
-	def create
-		@article = current_user.articles.build(article_params)
-
-		if @article.save
-			redirect_to @article
-			flash[:notice] = 'Article Created Successfully'
-		else
-			flash[:errs] = @article.errors.full_messages
-			render :new, status: :unprocessable_entity
-		end
-	end
-
-	def edit
-		authorize @article
-	end
-
-	def update
-		@article.image.purge
-		@article.image.attach(article_params[:image])
-		authorize @article
-      if @article.update(article_params)
-        redirect_to @article
-      else
-        render :edit, status: :unprocessable_entity
-      end
+  def create
+    @article = current_user.articles.build(article_params)
+    if @article.save
+      redirect_to root_path
+    else
+      flash[:errs] = @article.errors.full_messages
+      render :new, status: :unprocessable_entity
     end
+  end
 
-	def destroy
-		authorize @article
-		@article.destroy
-		redirect_to root_path, status: :see_other
-	end
 
-	private
-	
-	def article_params
-		params.require(:article).permit(:title, :body, :image)
-	end
+  def edit
+  end
 
-	def set_article
-		@article = Article.find(params[:id])
-	end
+  def update
+    @article.image.purge
+    @article.image.attach(article_params[:image])
+    if @article.update(article_params)
+      redirect_to @article
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @article.destroy
+    redirect_to root_path, status: :see_other
+  end
+
+  private
+
+  def article_params
+    params.require(:article).permit(:title, :body, :image)
+  end
+
+  def set_article
+    @article = Article.find(params[:id])
+    authorize @article
+  end
 end

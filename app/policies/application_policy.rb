@@ -36,6 +36,10 @@ class ApplicationPolicy
     false
   end
 
+  def permission?
+    user.admin? || record.user_id == user.id
+  end
+
   class Scope
     def initialize(user, scope)
       @user = user

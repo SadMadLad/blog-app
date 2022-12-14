@@ -1,13 +1,17 @@
 class ArticlePolicy < ApplicationPolicy
   def destroy?
-    user.admin? || user.id == record.user_id
+    permission?
   end
 
   def update?
-    user.admin? || user.id == record.user_id
+    permission?
   end
 
   def edit?
-    update?
+    permission?
+  end
+
+  def show?
+    true
   end
 end

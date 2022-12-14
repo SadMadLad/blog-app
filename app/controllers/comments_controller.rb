@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
   before_action :set_article_and_comment, only: [:edit, :update, :destroy]
+  before_action :set_article, only: [:create, :reply]
 
   def create
-    @article = Article.find(params[:article_id])
     @comment = @article.comments.new(comment_params)
     @comment.user_id = current_user.id if current_user
     @comment.save
@@ -11,17 +11,14 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    authorize @comment
   end
 
   def reply
-    @article = Article.find(params[:article_id])
     @parent_comment = @article.comments.find(params[:comment_id])
     @reply = Comment.new(article_id: @article, parent_id: @parent_comment)
   end
 
   def update
-    authorize @comment
     if @comment.update(comment_params)
       redirect_to @article
     else
@@ -30,19 +27,23 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-      authorize @comment
-      @comment.destroy
-      redirect_to @article
+    @comment.destroy
+    redirect_to @article
   end
 
   private
   
   def comment_params
-      params.require(:comment).permit(:body, :user_id, :parent_id)
+    params.require(:comment).permit(:body, :user_id, :parent_id)
   end
   
   def set_article_and_comment
     @article = Article.find(params[:article_id])
     @comment = @article.comments.find(params[:id])
+    authorize @comment
+  end
+
+  def set_article
+    @article = Article.find(params[:article_id])
   end
 end

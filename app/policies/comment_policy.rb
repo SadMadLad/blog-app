@@ -1,13 +1,13 @@
 class CommentPolicy < ApplicationPolicy
   def update?
-    user.admin? || user.id == record.user_id
+    permission?
   end
 
   def edit?
-    update?
+    permission?
   end
 
   def destroy?
-    user.admin? || user.id == record.user_id
+    permission?
   end
 end
