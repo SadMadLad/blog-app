@@ -1,11 +1,4 @@
-<% if flash[:errs] %>
-    <div class="alert alert-danger close alert-dismissable">
-    <% flash[:errs].each do |error_message| %>
-        <li><%= error_message %></li>
-    <% end %>
-    </div>
-    <% flash.delete(:errs)%>
-<% end %>
+<%= render "shared/flash", type: :notice, alert_type: "danger" %>
 
 <div class="container" data-turbo="false">
     <h2>New Article</h2>

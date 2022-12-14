@@ -1,8 +1,7 @@
-<% if flash[:alert] %>
-    <div class="alert alert-danger">
-        <%= flash[:alert] %>
-    </div>
-<% end %>
+<%= render "shared/flash", type: :new, alert_type: "success" %>
+<%= render "shared/flash", type: :edit, alert_type: "success" %>
+<%= render "shared/flash", type: :delete, alert_type: "success" %>
+
 <article class="card container p-3">
  <!--   <div class="card-header p-2 m-0 bg-white">
         <span class="">Article Likes: <%= @article.likes.count() %></span>

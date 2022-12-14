@@ -7,10 +7,12 @@ class CommentsController < ApplicationController
     @comment.user_id = current_user.id if current_user
     @comment.save
 
+    flash[:new] = "New Comment Added"
     redirect_to @article        
   end
 
   def edit
+    flash[:edit] = "Comment Edited Successfully"
   end
 
   def reply
@@ -27,6 +29,7 @@ class CommentsController < ApplicationController
   end
   
   def destroy
+    flash[:delete] = "Comment deleted successfully"
     @comment.destroy
     redirect_to @article
   end
