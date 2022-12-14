@@ -1,9 +1,12 @@
 <% if comment.id %>
 <div class="card my-3">
-  <div class="card-header"><%= comment.user.full_name %></div>
 
+  <%# Comment Body %>
+  <div class="card-header"><%= comment.user.full_name %></div>
   <div class="card-body">
     <div class="card-text"><%= comment.body %></div>
+
+  <%# Comment Actions and Likes %>
     <% if user_signed_in? %>
       <%= render "articles/buttons/comment_buttons", article: article, comment: comment %>
       <%= render "shared/unlike_button", like: liked_likeable(comment) if user_likes_likeable?(comment) %>
@@ -13,6 +16,8 @@
       <span><i class="bi bi-star"></i> <%= likeable_likes comment %></span>
     <% end %> 
   </div>
+  
+  <%# Comment Replies %>
   <% comment.replies.each do |reply| %>
     <div class="float-right mx-5"><%= render "comment", comment: reply, article: article %></div>
   <% end if comment.replies %>
