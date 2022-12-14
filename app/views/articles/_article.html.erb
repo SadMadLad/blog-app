@@ -5,21 +5,18 @@
     <p class="card-text"><small class="text-muted">Created on: <%= article.updated_at.strftime("%d %B, %Y") %></small></p>
     <% n_likes = article.likes.count() %>
     <% if user_signed_in? %>
-        <div class="container py-2">
-            <%= link_to "Edit", edit_article_path(article), class: "btn btn-primary mx-1" %>
-            <%= link_to "Delete", article_path(article), data: {
-                turbo_method: :delete,
-                turbo_confirm: "Are you sure?"
-            }, class: "btn btn-primary mx-1" %>
-            <% like = current_user.likes.find_by(likeable: article )%>
-            <%= render "shared/unlike_button", like: like if like %>
-            <%= render "shared/like_button", likeable: {id: article.id, type: "Article"}, icon: "fs-4 bi bi-hand-thumbs-up" unless like %>
-            <%= n_likes %>
-        </div>
+      <div class="container py-2">
+          <%= render "articles/buttons/article_buttons", article: article %>
+
+          <% like = current_user.likes.find_by(likeable: article )%>
+          <%= render "shared/unlike_button", like: like if like %>
+          <%= render "shared/like_button", likeable: {id: article.id, type: "Article"} unless like %>
+          <%= n_likes %>
+      </div>
     <% else %>
-    <div class="container py-2">
-      <i class="bi bi-star"></i> <%= n_likes %>
-    </div>
+      <div class="container py-2">
+        <i class="bi bi-star"></i> <%= n_likes %>
+      </div>
     <% end %> <%# user_signed_in? end %>
   </div>
 </div>

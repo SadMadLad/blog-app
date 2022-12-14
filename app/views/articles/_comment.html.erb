@@ -1,24 +1,18 @@
 <% if comment.id %>
 <div class="card my-3">
-    <div class="card-header">
-        <%= comment.user.first_name + " " + comment.user.last_name %>
-    </div>
+    <div class="card-header"><%= comment.user.full_name %></div>
 
     <div class="card-body">
         <div class="card-text"><%= comment.body %></div>
             <% like_count = comment.likes.count %>
             <% if user_signed_in? %>
-            <%= link_to "Delete", [comment.article, comment], data: {
-                turbo_method: :delete,
-                turbo_confirm: "Delete the comment?"
-            }, class: "btn btn-primary" %>
-            <%= link_to "Edit", edit_article_comment_path(article, comment), class: "btn btn-primary" %>
-            <%= link_to "Reply", article_comment_reply_path(article, comment), class: "btn btn-primary" %>
+                <%= render "articles/buttons/comment_buttons", article: article, comment: comment %>
 
-            <% like = current_user.likes.find_by(likeable: comment ) %>
-            <%= render "shared/unlike_button", like: like if like %>
-            <%= render "shared/like_button", likeable: {id: comment.id, type: "Comment"}, icon: "fs-4 bi bi-hand-thumbs-up" unless like %>
-            <%= like_count %>
+                <% like = current_user.likes.find_by(likeable: comment) %>
+                <%= render "shared/unlike_button", like: like if like %>
+                <%= render "shared/like_button", likeable: {id: comment.id, type: "Comment"} unless like %>
+                <%= like_count %>
+            
             <% else %>
                 <span><i class="bi bi-star"></i> <%= like_count %></span>
             <% end %> <%# if user_signed_in? End %>
