@@ -1,7 +1,6 @@
 class LikesController < ApplicationController
   def create
     @like = current_user.likes.new(like_params)
-    # p "Killme #{like_params[:likeable_type]}"
     @like.save
 
     if like_params[:likeable_type] == "Comment"
@@ -24,6 +23,7 @@ class LikesController < ApplicationController
   end
 
   private
+  
   def like_params
     params.require(:like).permit(:likeable_type, :likeable_id)
   end

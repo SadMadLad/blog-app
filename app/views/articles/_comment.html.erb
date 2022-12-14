@@ -3,20 +3,19 @@
     <div class="card-header">
         <%= comment.user.first_name + " " + comment.user.last_name %>
     </div>
+
     <div class="card-body">
-        <div class="card-text">
-            <%= comment.body %>
-        </div>
-            <% like_count = comment.likes.count() %>
+        <div class="card-text"><%= comment.body %></div>
+            <% like_count = comment.likes.count %>
             <% if user_signed_in? %>
             <%= link_to "Delete", [comment.article, comment], data: {
                 turbo_method: :delete,
                 turbo_confirm: "Delete the comment?"
             }, class: "btn btn-primary" %>
-            <%= link_to "Edit", edit_article_comment_path(article, comment), class: "btn btn-primary"%>
-            <%= link_to "Reply", article_comment_reply_path(article, comment), class: "btn btn-primary"%>
+            <%= link_to "Edit", edit_article_comment_path(article, comment), class: "btn btn-primary" %>
+            <%= link_to "Reply", article_comment_reply_path(article, comment), class: "btn btn-primary" %>
 
-            <% like = current_user.likes.find_by(likeable: comment )%>
+            <% like = current_user.likes.find_by(likeable: comment ) %>
                 <% if like %>
                     <%= link_to '<i class="fs-4 bi bi-hand-thumbs-up-fill"></i>'.html_safe, like_path(like), :method => :delete %>
                 <% else %>

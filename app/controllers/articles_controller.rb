@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-	before_action :set_article, only: [:show, :destroy]
+	before_action :set_article, only: [:show, :edit, :update, :destroy]
 
 	def index
 		@articles = Article.all
@@ -7,25 +7,6 @@ class ArticlesController < ApplicationController
 
 	def show
 	end
-
-	def edit
-		@article = Article.find(params[:id])
-		authorize @article
-	end
-
-	def update
-        @article = Article.find(params[:id])
-		p(@article, article_params, "Mango")
-		@article.image.purg
-		@article.image.attach(article_params[:image])
-		authorize @article
-
-        if @article.update(article_params)
-            redirect_to @article
-        else
-            render :edit, status: :unprocessable_entity
-        end
-    end
 
 	def new
 		@article = current_user.articles.new
@@ -43,10 +24,24 @@ class ArticlesController < ApplicationController
 		end
 	end
 
+	def edit
+		authorize @article
+	end
+
+	def update
+		@article.image.purge
+		@article.image.attach(article_params[:image])
+		authorize @article
+      if @article.update(article_params)
+        redirect_to @article
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    end
+
 	def destroy
 		authorize @article
 		@article.destroy
-
 		redirect_to root_path, status: :see_other
 	end
 
