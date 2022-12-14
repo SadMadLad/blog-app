@@ -12,7 +12,7 @@
   <div class="my-3">
     <h1 class="text-center">Comments</h1>
     <%= form_with model: [@article, @article.comments.build] do |form|%>
-      <%= render "comment_form", form: form %>
+      <%= render "shared/comment_form", form: form %>
     <% end if user_signed_in? %>
     
   <%# Comments %>

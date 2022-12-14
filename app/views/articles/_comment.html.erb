@@ -9,11 +9,10 @@
   <%# Comment Actions and Likes %>
     <% if user_signed_in? %>
       <%= render "articles/buttons/comment_buttons", article: article, comment: comment %>
-      <%= render "shared/unlike_button", like: liked_likeable(comment) if user_likes_likeable?(comment) %>
-      <%= render "shared/like_button", likeable: {id: comment.id, type: "Comment"} unless user_likes_likeable?(comment) %>
-      <%= likeable_likes comment %>
+      <%= render "shared/like_unlike", component: comment, component_type: "Comment" %>
+      <%= likes_count comment %>
     <% else %>
-      <span><i class="bi bi-star"></i> <%= likeable_likes comment %></span>
+      <span><i class="bi bi-star"></i> <%= likes_count comment %></span>
     <% end %> 
   </div>
   

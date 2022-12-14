@@ -4,11 +4,10 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @article.comments.new(comment_params)
-    @comment.user_id = current_user.id if current_user
     @comment.save
 
     flash[:new] = "New Comment Added"
-    redirect_to @article        
+    redirect_to @article
   end
 
   def edit
@@ -18,6 +17,7 @@ class CommentsController < ApplicationController
   def reply
     @parent_comment = @article.comments.find(params[:comment_id])
     @reply = Comment.new(article_id: @article, parent_id: @parent_comment)
+    flash[:reply] = "Reply added successfully"
   end
 
   def update

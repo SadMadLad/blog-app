@@ -8,11 +8,10 @@
   <div class="container py-2">
   <% if user_signed_in? %>
     <%= render "articles/buttons/article_buttons", article: article %>
-    <%= render "shared/unlike_button", like: liked_likeable(article) if user_likes_likeable?(article) %>
-    <%= render "shared/like_button", likeable: {id: article.id, type: "Article"} unless user_likes_likeable? article %>
-    <%= likeable_likes article %>
+    <%= render "shared/like_unlike", component: article, component_type: "Article" %>
+    <%= likes_count article %>
   <% else %>
-    <i class="bi bi-star"></i> <%= likeable_likes article %>
+    <i class="bi bi-star"></i> <%= likes_count article %>
   <% end %>
   </div>
 </div>
