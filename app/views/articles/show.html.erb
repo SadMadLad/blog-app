@@ -28,22 +28,16 @@
 
     <div class="my-3">
         <h1 class="container">Comment Section</h1>
-        <div class="new-comment container">
-        </div>
         <div class="container-fluid my-3">
             <h1 class="text-center">Comments</h1>
-            <% if user_signed_in? %>
-                <%= form_with model: [@article, @article.comments.build] do |form|%>
-                    <%= render "comment_form", :form => form%>
-                <% end %>
-            <% end %>
+            <%= form_with model: [@article, @article.comments.build] do |form|%>
+                <%= render "comment_form", form: form %>
+            <% end if user_signed_in? %>
             
             <div class="comments container">
-                    <% @article.comments.each do |comment| %>
-                        <% unless comment.parent_id %>
-                            <%= render 'comment', :comment => comment, :article => @article %>
-                        <% end %>
-                    <% end %>
+                <% @article.comments.each do |comment| %>
+                    <%= render 'comment', comment: comment, article: @article unless comment.parent_id %>
+                <% end %>
             </div>
         </div>
     </div>

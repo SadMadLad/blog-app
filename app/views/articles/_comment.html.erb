@@ -17,12 +17,10 @@
                 <span><i class="bi bi-star"></i> <%= like_count %></span>
             <% end %> <%# if user_signed_in? End %>
     </div>
-    <% if comment.replies %>
         <% comment.replies.each do |reply| %>
             <div class="float-right mx-5">
                 <%= render "comment", :comment => reply, :article => article %>
             </div>
-        <% end %>
-    <% end %>
+        <% end if comment.replies %>
 </div>
 <% end %>
