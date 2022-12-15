@@ -1,0 +1,5 @@
+<% if is_liked(component) %>
+  <%= render "shared/unlike_button", like: is_liked(component) %>
+<% else %>
+  <%= render "shared/like_button", likeable: {id: component.id, type: component_type}%>
+<% end %>

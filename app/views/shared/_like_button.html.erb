@@ -1,0 +1,7 @@
+<%= form_with(model: Like.new, method: :post, class: "d-inline") do |form|%>
+  <%= form.hidden_field :likeable_id, value: likeable[:id] %>
+  <%= form.hidden_field :likeable_type, value: likeable[:type] %>
+  <%= button_tag type: 'submit', class: "p-0 m-0 border-0 bg-white" do %>
+    <i class="fs-4 bi bi-hand-thumbs-up"></i>
+  <% end %>
+<% end %> 

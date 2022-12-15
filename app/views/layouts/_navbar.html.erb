@@ -1,13 +1,14 @@
 <nav class="navbar navbar-dark bg-dark px-4 py-2">
   <%= link_to "Blogu", root_path, class: "navbar-brand" %>
   <ul class="navbar-nav">
-    <% if current_user %>
-        <li class="nav-item"><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-primary" %> </li>
+    <div class="d-flex">
+    <% if user_signed_in? %>
+      <li class="nav-item mx-2 btn btn-warning"><%= current_user.full_name %></li>
+      <li class="nav-item"><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-primary" %> </li>
     <% else %>
-        <div class="d-flex">
-            <li class="nav-item mx-2"><%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %></li>
-            <li class="nav-item mx-2"><%= link_to "Login", new_user_session_path, class: "btn btn-secondary" %></li>
-        </div>
+      <li class="nav-item mx-2"><%= link_to "Sign Up", new_user_registration_path, class: "btn btn-primary" %></li>
+      <li class="nav-item mx-2"><%= link_to "Login", new_user_session_path, class: "btn btn-secondary" %></li>
     <% end %>
+    </div>
   </ul>
 </nav>
