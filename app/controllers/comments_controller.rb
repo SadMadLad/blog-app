@@ -3,15 +3,13 @@ class CommentsController < ApplicationController
   before_action :set_article, only: [:create, :reply]
 
   def create
-    @comment = @article.comments.new(comment_params)
-    @comment.save
-
-    flash[:notice] = "New Comment Added"
-    redirect_to @article
+    @comment = @article.comments.build(comment_params)
+    if @comment.save
+      redirect_to @article, notice: 'Comment created successfully'
+    end
   end
 
   def edit
-    flash[:notice] = "Comment Edited Successfully"
   end
 
   def reply
@@ -21,15 +19,15 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to @article
+      redirect_to @article, notice: "Comment Edited Successfully"
     else
       render :edit, status: :unprocessable_entity
     end
   end
   
   def destroy
-    flash[:notice] = "Comment deleted successfully"
     @comment.destroy
+    flash[:notice] = "Comment deleted successfully"
     redirect_to @article
   end
 
