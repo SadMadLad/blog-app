@@ -6,18 +6,17 @@ class CommentsController < ApplicationController
     @comment = @article.comments.new(comment_params)
     @comment.save
 
-    flash[:new] = "New Comment Added"
+    flash[:notice] = "New Comment Added"
     redirect_to @article
   end
 
   def edit
-    flash[:edit] = "Comment Edited Successfully"
+    flash[:notice] = "Comment Edited Successfully"
   end
 
   def reply
     @parent_comment = @article.comments.find(params[:comment_id])
     @reply = Comment.new(article_id: @article, parent_id: @parent_comment)
-    flash[:reply] = "Reply added successfully"
   end
 
   def update
@@ -29,7 +28,7 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    flash[:delete] = "Comment deleted successfully"
+    flash[:notice] = "Comment deleted successfully"
     @comment.destroy
     redirect_to @article
   end
