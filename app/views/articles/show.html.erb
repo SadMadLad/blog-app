@@ -1,11 +1,21 @@
 <article class="card container p-3">
-    <h1><%= @article.title %></h1>
-    
-    <% if @article.image.attached? %>
-        <%= image_tag @article.image, class: "rounded img-fluid" %>
-    <% end %>
+  <%# Article Body %>
+  <h1><%= @article.title %></h1>
+  <%= image_tag @article.image, class: "rounded img-fluid" if @article.image.attached? %>
+  <section class="mt-3"><%= @article.body %></section>
 
-    <section class="mt-3">
-        <%= @article.body %>
-    </section>
+  <%# Comment Form %>
+  <div class="my-3">
+    <h1 class="text-center">Comments</h1>
+    <%= form_with model: [@article, @article.comments.build] do |form|%>
+      <%= render "shared/comment_form", form: form %>
+    <% end if user_signed_in? %>
+    
+  <%# Comments %>
+    <div class="comments container">
+      <% @article.comments.each do |comment| %>
+        <%= render 'comment', comment: comment, article: @article unless comment.parent_id %>
+      <% end %>
+    </div>
+  </div>
 </article>

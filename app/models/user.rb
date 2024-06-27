@@ -4,8 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
-  has_many :articles
+  has_many :articles, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
+  enum :user_type, [:user, :admin]
+  
   def full_name
     first_name + " " + last_name
   end
